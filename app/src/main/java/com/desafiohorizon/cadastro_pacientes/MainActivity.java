@@ -2,6 +2,7 @@ package com.desafiohorizon.cadastro_pacientes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -79,7 +80,12 @@ public class MainActivity extends AppCompatActivity {
             );
         }
 
-        Toast.makeText(this, "Paciente Salvo , id: " +id, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Paciente Salvo , id: " +id, Toast.LENGTH_LONG).show();
+    }
+
+    public void listar (View view){
+        Intent iListaPaciente = new Intent(this, ListaPacientes.class);
+        startActivity(iListaPaciente);
     }
 }
 

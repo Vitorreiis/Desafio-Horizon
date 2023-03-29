@@ -80,4 +80,9 @@ public class Paciente {
     public void setChecked(boolean checked) {
         isChecked = checked;
     }
+
+    @Override
+    public String toString(){
+        return nome + ", " + idade + " anos";
+    }
 }

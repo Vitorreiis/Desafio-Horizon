@@ -2,7 +2,12 @@ package com.desafiohorizon.cadastro_pacientes;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PacienteDAO {
 
@@ -24,6 +29,26 @@ public class PacienteDAO {
         contentValues.put("periodoDorCabeca", paciente.getPeriodoDorCabeca());
         contentValues.put("qntSemanasVisitadas", paciente.getQntSemanasVisitadas());
 
-        return db.insert("paciente", null, contentValues);
+        Cursor cursor = db.rawQuery("SELECT * FROM paciente WHERE nome = ?", new String[] {paciente.getNome()});
+
+        if (cursor.getCount() > 0){
+            //existe
+            return db.insert("paciente", null, contentValues);
+        } else {
+            return -1;
+        }
+    }
+
+    public List<Paciente> listar(){
+
+        List<Paciente> lista = new ArrayList<Paciente>();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM paciente", null);
+
+        while(cursor.moveToNext()){
+            lista.add(new Paciente(cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4), cursor.getInt(5), cursor.getInt(6)));
+        }
+
+        return lista;
     }
 }
