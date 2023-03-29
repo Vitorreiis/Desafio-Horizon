@@ -8,6 +8,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,15 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Switch switchSimNao;
     private EditText inputQtdSemanasVisitadas;
     private TextView resultadoConsulta;
-
-    private String nome;
-    private Double idade;
-    private Double tempCorp;
-    private Double periodoTosse;
-    private Double periodoDorCabeca;
-    private Double qntSemanasVisitadas;
     private boolean isChecked;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,27 +52,34 @@ public class MainActivity extends AppCompatActivity {
         String pacienteLiberado = "Paciente liberado";
         String pacienteInternado = "Paciente deverá ser internado";
 
-        String nome = inputNome.getText().toString();
-        Double idade = Double.parseDouble(inputIdade.getText().toString());
-        Double tempCorp = Double.parseDouble(inputTempCorp.getText().toString());
-        Double periodoTosse = Double.parseDouble(inputPeriodoTosse.getText().toString());
-        Double periodoDorCabeca = Double.parseDouble(inputPeriodoDorCabeca.getText().toString());
-        Double qntSemanasVisitadas = Double.parseDouble(inputQtdSemanasVisitadas.getText().toString());
+        Paciente paciente = new Paciente(
+                inputNome.getText().toString(),
+                Integer.parseInt(inputIdade.getText().toString()),
+                Integer.parseInt(inputTempCorp.getText().toString()),
+                Integer.parseInt(inputPeriodoTosse.getText().toString()),
+                Integer.parseInt(inputPeriodoDorCabeca.getText().toString()),
+                Integer.parseInt(inputQtdSemanasVisitadas.getText().toString())
+        );
 
-        if(isChecked && qntSemanasVisitadas<=6 && periodoTosse>5 && periodoDorCabeca>5 && tempCorp>37){
+        PacienteDAO pacienteDAO = new PacienteDAO(this);
+        long id = pacienteDAO.inserir(paciente);
+
+        if(isChecked && paciente.getQntSemanasVisitadas()<=6 && paciente.getPeriodoTosse()>5 && paciente.getPeriodoDorCabeca()>5 && paciente.getTempCorp()>37){
             resultadoConsulta.setText(pacienteInternado);
-        } else if (isChecked && qntSemanasVisitadas<=6) {
+        } else if (isChecked && paciente.getQntSemanasVisitadas()<=6) {
             resultadoConsulta.setText(pacienteQuarentena);
-        } else if (idade>60 || idade<10) {
-            if (tempCorp>37 || periodoDorCabeca>3 || periodoTosse>5) {
+        } else if (paciente.getIdade()>60 || paciente.getIdade()<10) {
+            if (paciente.getTempCorp()>37 || paciente.getPeriodoDorCabeca()>3 || paciente.getPeriodoTosse()>5) {
                 resultadoConsulta.setText(pacienteQuarentena);
             }
-        } else if (idade>10 && idade<60 && tempCorp>37 && periodoDorCabeca>7 && periodoTosse>7) {
+        } else if (paciente.getIdade()>10 && paciente.getIdade()<60 && paciente.getTempCorp()>37 && paciente.getPeriodoDorCabeca()>7 && paciente.getPeriodoTosse()>7) {
             resultadoConsulta.setText(pacienteQuarentena);
         }else {
             resultadoConsulta.setText(pacienteLiberado
             );
         }
+
+        Toast.makeText(this, "Paciente Salvo , id: " +id, Toast.LENGTH_LONG).show();
     }
 }
 
