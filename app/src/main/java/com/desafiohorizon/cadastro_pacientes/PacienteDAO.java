@@ -19,6 +19,7 @@ public class PacienteDAO {
         db = data.getWritableDatabase();
     }
 
+    //Função que insere um novo paciente no banco de dados
     public long inserir (Paciente paciente){
         ContentValues contentValues = new ContentValues();
 
@@ -31,14 +32,16 @@ public class PacienteDAO {
 
         Cursor cursor = db.rawQuery("SELECT * FROM paciente WHERE nome = ?", new String[] {paciente.getNome()});
 
-        if (cursor.getCount() > 0){
-            //existe
+        if (cursor.getCount() == 0){
+            //Paciente não existe
             return db.insert("paciente", null, contentValues);
         } else {
+            //Paciente existe existe
             return -1;
         }
     }
 
+    //Função que percorre a tabela do banco de dados e retorna a lista de todos os pacientes cadastrados
     public List<Paciente> listar(){
 
         List<Paciente> lista = new ArrayList<Paciente>();

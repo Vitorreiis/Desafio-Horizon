@@ -1,3 +1,10 @@
+/*
+
+        Page de listar os pacientes salvos no banco de dados
+
+ */
+
+
 package com.desafiohorizon.cadastro_pacientes;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +17,7 @@ import java.util.List;
 
 public class ListaPacientes extends AppCompatActivity {
 
+    //variaveis
     List<Paciente> lPaciente;
 
     @Override
@@ -17,6 +25,7 @@ public class ListaPacientes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_pacientes);
 
+        //atribuindo lvPacientes o id do ListView no layout
         ListView lvPacientes = findViewById(R.id.listPacientes);
         PacienteDAO pacienteDAO = new PacienteDAO(this);
         lPaciente = pacienteDAO.listar();

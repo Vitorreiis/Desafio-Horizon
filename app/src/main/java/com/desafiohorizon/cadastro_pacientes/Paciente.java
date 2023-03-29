@@ -2,6 +2,7 @@ package com.desafiohorizon.cadastro_pacientes;
 
 public class Paciente {
 
+    //variaveis
     private String nome;
     private int idade;
     private int tempCorp;
@@ -9,6 +10,8 @@ public class Paciente {
     private int periodoDorCabeca;
     private int qntSemanasVisitadas;
     private boolean isChecked;
+
+    //construtor
     public Paciente(
             String nome,
             int idade,
@@ -25,6 +28,8 @@ public class Paciente {
         this.qntSemanasVisitadas = qntSemanasVisitadas;
     }
 
+
+    //Criação de getters e setters
     public String getNome() {
         return nome;
     }

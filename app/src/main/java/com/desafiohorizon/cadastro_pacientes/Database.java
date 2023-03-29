@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 
 public class Database extends SQLiteOpenHelper {
 
+    //variaveis
     private static final String nome = "bancoPacientes.db";
     private static final int versao = 1;
 
@@ -17,6 +18,8 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
+        //Criação da tabela no banco de dados
         sqLiteDatabase.execSQL("CREATE TABLE paciente (id integer primary key autoincrement, nome varchar(50), idade integer, tempCorp integer, periodoTosse integer, periodoDorCabeca integer, qntSemanasVisitadas integer)");
     }
 
